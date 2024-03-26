@@ -4,8 +4,8 @@ const devicesListPage = new DevicesListPage()
 describe('Authorization', () => {
   it('requires authorizations', () => {
     cy.visit('/')
-      cy.get('#username')
-      cy.get('#password')
+      cy.get('#username').should('be.visible')
+      cy.get('#password').should('be.visible')
   })
 
   it('logs in with test user', () => {

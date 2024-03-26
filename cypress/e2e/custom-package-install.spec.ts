@@ -41,16 +41,39 @@ describe('Custom package install', () => {
      connect.createPackagePage.saveButton.click()
      connect.packagesPage.searchBox.click().type(customPackageName)
      connect.packagesPage.packagesGrid.contains(customPackageName).click()
-
   })
 
   it('Custom package saved correctly', () => {
-    
-    // TODO  open package again to verify it saved correctly
+    // reloads app and searches newly created package
+    connect.navBar.openPackages()
+    connect.packagesPage.searchBox.click().type(customPackageName)
+    connect.packagesPage.packagesGrid.contains(customPackageName).click()
+    // verifies the values given at time of creation on the create page
+    connect.createPackagePage.verifyPackage(customPackageName,
+      customPackageDescription,
+      customPackageVersion,
+      customPackageTimeout)
   })
 
   it('Can create a package with multiple steps', () => {
-    // TODO
+    // searches newly created package
+    connect.navBar.openPackages()
+    connect.packagesPage.searchBox.click().type(customPackageName)
+    connect.packagesPage.packagesGrid.contains(customPackageName).click()
+    // adds Powershell step
+    connect.createPackagePage.createPackageStep(
+           './cypress/resources/hello.exe',
+           '999',
+           '/s',
+           true
+         )
   })
 
+  it('Can delete the newly created package', () => {
+    // I added this test case to get full CRUD on this flow
+    connect.navBar.openPackages()
+    connect.packagesPage.searchBox.click().type(customPackageName)
+    connect.packagesPage.packagesGrid.contains(customPackageName).click()
+    connect.createPackagePage.deletePackage()
+  })
 })

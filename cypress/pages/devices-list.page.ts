@@ -57,6 +57,24 @@ class DevicesListPage {
   getGroupTabCount(groupName: string) {
     return cy.get(`[data-testid="${groupName}-group-tab-count"]`)
   }
+
+  filterDummyData(){
+    const dataArray = ["Dummy Data 1", "Dummy Data 2", "Dummy Data 3", "Dummy Data 4", "Dummy Data empty memor"]
+  
+    cy.contains("Dummy Data 5").should('exist')
+    dataArray.forEach(data => {
+      cy.contains(data).should('not.exist');
+    });
+  }
+
+  verifyAllDummyData(){
+    const dataArray = ["Dummy Data 1", "Dummy Data 2", "Dummy Data 3", "Dummy Data 4", "Dummy Data 5", "Dummy Data empty memor"]
+  
+    dataArray.forEach(data => {
+      cy.contains(data).should('exist');
+    });
+  }
 }
+
 
 export default DevicesListPage

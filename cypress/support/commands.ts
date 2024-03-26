@@ -42,12 +42,11 @@ Cypress.Commands.add('loginAsTestUser', (userKey: string = defaultUser) => {
     message: `starting login as test user`,
   })
   cy.session(userKey, () => {
-    // TODO login as test user
     cy.visit('/')
+    cy.get('#username').type('matthewtestuser@qatestpdq.com')
+    cy.get('#password').type('TestPassPDQ1!')
+    cy.contains('button', 'Log in').click();
 
-
-    // a cookie for _houston_key is set
-    // when the user logs in
   })
 })
 
@@ -57,6 +56,8 @@ Cypress.Commands.add('resetDemoData', () => {
     displayName: 'reset',
     message: `resetting demo data for current org`,
   })
+  cy.get('#debug-header').click()
+  cy.contains('Reset fixed demo data').click()
 })
 
 Cypress.Commands.add('getFirstDevice', () => {
